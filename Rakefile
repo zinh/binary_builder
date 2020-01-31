@@ -5,28 +5,19 @@ task :musl do
   sh 'tar -zcvf musl.tar.gz /usr/local/musl'
 end
 
-task :gcc => [:gmp, :mpfr, :mpc]do
+task :gcc do
+  prefix = '/usr/local/gcc'
+  Rake::Task[:compile].invoke('https://gcc.gnu.org/pub/gcc/infrastructure/gmp-6.1.0.tar.bz2', 'gmp-6.1.0', prefix)
+  Rake::Task[:compile].invoke('https://gcc.gnu.org/pub/gcc/infrastructure/mpfr-3.1.4.tar.bz2', 'mpfr-3.1.4', prefix)
+  Rake::Task[:compile].invoke('https://gcc.gnu.org/pub/gcc/infrastructure/mpc-1.0.3.tar.gz', 'mpc-1.0.3', prefix)
+  Rake::Task[:compile].invoke('https://gcc.gnu.org/pub/gcc/infrastructure/isl-0.18.tar.bz2', 'isl-0.18', prefix)
+
   sh 'curl -OJL https://ftpmirror.gnu.org/gcc/gcc-9.2.0/gcc-9.2.0.tar.xz && tar -xf gcc-9.2.0.tar.xz'
   sh "cd gcc-9.2.0 && ./configure --with-gmp=#{prefix} --with-mpfr==#{prefix} --with-mpc=#{prefix} && make && sudo make install"
 end
 
-task :gmp do
-  package_name = "gmp-6.1.0"
-  prefix = "/usr/local/gcc"
-  sh "curl -OJL http://gcc.gnu.org/pub/gcc/infrastructure/#{package_name}.tar.bz2 && tar -xf #{package_name}.tar.bz2"
-  sh "cd #{package_name} && ./configure --prefix=#{prefix} && make && sudo make install"
-end
-
-task :mpfr do
-  package_name = "pfr-3.1.4"
-  prefix = "/usr/local/gcc"
-  sh "curl -OJL http://gcc.gnu.org/pub/gcc/infrastructure/#{package_name}.tar.bz2 && tar -xf #{package_name}.tar.bz2"
-  sh "cd #{package_name} && ./configure --prefix=#{prefix} && make && sudo make install"
-end
-
-task :mpc do
-  package_name = "mpc-1.0.3"
-  prefix = "/usr/local/gcc"
-  sh "curl -OJL http://gcc.gnu.org/pub/gcc/infrastructure/#{package_name}.tar.gz && tar -xf #{package_name}.tar.gz"
-  sh "cd #{package_name} && ./configure --prefix=#{prefix} && make && sudo make install"
+task :compile, [:url, :package_name, :prefix] do |t, args|
+  file_name = File.basename(args.url)
+  sh "curl -OJL #{args.url} && tar -xf #{file_name}"
+  sh "cd #{args.package_name} && ./configure --prefix=#{args.prefix} && make && sudo make install"
 end
