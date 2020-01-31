@@ -6,7 +6,7 @@ task :musl do
 end
 
 task :gcc do
-  prefix = '/Users/nguyen-v/Workspace/personal/binary_builder/gcc'
+  prefix = '/usr/local/gcc'
   Rake::Task[:compile].invoke('https://gcc.gnu.org/pub/gcc/infrastructure/gmp-6.1.0.tar.bz2', 'gmp-6.1.0', prefix)
   Rake::Task[:compile].reenable
   Rake::Task[:compile].invoke('https://gcc.gnu.org/pub/gcc/infrastructure/mpfr-3.1.4.tar.bz2', 'mpfr-3.1.4', prefix, "--with-gmp=#{prefix}")
