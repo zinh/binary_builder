@@ -28,8 +28,8 @@ task :gcc, [:version, :prefix] do |t, args|
 end
 
 task :libxml2 do |t, args|
-  prefix = "/usr/local"
-  Rake::Task[:compile].invoke('ftp://xmlsoft.org/libxml2/libxml2-git-snapshot.tar.gz', 'libxml2-v2.9.10', prefix)
+  prefix = "/usr/local/libxml2"
+  Rake::Task[:compile].invoke('http://xmlsoft.org/sources/libxml2-2.9.10.tar.gz', 'libxml2-2.9.10', prefix)
   sh 'ls /usr/local'
 end
 
