@@ -14,9 +14,8 @@ task :gcc do
   Rake::Task[:compile].invoke('https://gcc.gnu.org/pub/gcc/infrastructure/mpc-1.0.3.tar.gz', 'mpc-1.0.3', prefix, "--with-mpfr=#{prefix}")
   Rake::Task[:compile].reenable
   Rake::Task[:compile].invoke('https://gcc.gnu.org/pub/gcc/infrastructure/isl-0.18.tar.bz2', 'isl-0.18', prefix, "--with-gmp-prefix=#{prefix}")
-
-  sh 'curl -OJL https://ftpmirror.gnu.org/gcc/gcc-9.2.0/gcc-9.2.0.tar.xz && tar -xf gcc-9.2.0.tar.xz'
-  sh "cd gcc-9.2.0 && ./configure --with-gmp=#{prefix} --with-mpfr==#{prefix} --with-mpc=#{prefix} && make && sudo make install"
+  Rake::Task[:compile].reenable
+  Rake::Task[:compile].invoke('https://ftpmirror.gnu.org/gcc/gcc-9.2.0/gcc-9.2.0.tar.xz', 'gcc-9.2.0', prefix, "--with-gmp=#{prefix} --with-mpfr==#{prefix} --with-mpc=#{prefix} --disable-multilib")
 end
 
 task :compile, [:url, :package_name, :prefix, :config_flag] do |t, args|
