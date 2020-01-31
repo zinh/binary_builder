@@ -2,8 +2,11 @@ language: ruby
 dist: bionic
 rvm:
   - 2.6.3
+branches:
+  only:
+    - master
 deploy:
   provider: releases
-  api_key: GITHUB_AUTH_TOKEN
+  api_key: $GITHUB_AUTH_TOKEN
   file: musl.tar.gz
   skip_cleanup: true
