@@ -24,5 +24,5 @@ task :compile, [:url, :package_name, :prefix, :config_flag] do |t, args|
   file_name = File.basename(args.url)
   #puts "Invoked with: ", file_name
   sh "curl -OJL #{args.url} && tar -xf #{file_name}"
-  sh "cd #{args.package_name} && ./configure --prefix=#{args.prefix} #{args.config_flag} && make && make install"
+  sh "cd #{args.package_name} && ./configure --prefix=#{args.prefix} #{args.config_flag} && make && sudo make install"
 end
