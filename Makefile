@@ -1,2 +1,4 @@
-install:
-	cd musl; ./configure; make; make install
+all: musl
+
+musl:
+	cd musl; ./configure; make; sudo make install
