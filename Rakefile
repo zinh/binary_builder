@@ -1,5 +1,5 @@
 task default: %w[musl]
 
 task :musl do
-  sh 'cd musl; ./configure & make && sudo make install'
+  sh 'cd musl; ./configure && make && sudo make install'
 end
