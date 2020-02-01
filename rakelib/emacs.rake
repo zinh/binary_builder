@@ -11,20 +11,23 @@ namespace :emacs do
     --with-modules 
     --prefix=$HOME/Programs/emacs-25.3
     END
-    Rake::Task[:compile].invoke('http://mirrors.syringanetworks.net/gnu/emacs/emacs-26.3.tar.xz', 'emacs-26.3')
+    env = {
+      'CPPFLAGS' => "-I#{prefix}/include",
+      'PKG_CONFIG_PATH' => "#{prefix}/lib/pkgconfig",
+      'LDFLAGS' => "-L#{prefix}/lib"
+    }
+    Rake::Task[:compile].invoke('http://mirrors.syringanetworks.net/gnu/emacs/emacs-26.3.tar.xz', 'emacs-26.3', prefix, config_flags, env)
   end
 
-  task :gnutls => [:libtasn1, :gmp, :libunistring, :nettle] do |t, args|
-    config_flags = <<~END
-  --disable-dependency-tracking 
-  --disable-silent-rules 
-  --disable-static 
-  --sysconfdir=/usr/local/etc 
-  --with-default-trust-store-file=/usr/local/etc/openssl/cert.pem 
-  --disable-heartbeat-support 
-  --without-p11-kit
-    END
-    Rake::Task[:compile].invoke('https://www.gnupg.org/ftp/gcrypt/gnutls/v3.5/gnutls-3.5.19.tar.xz', 'gnutls-3.5.19', config_flags)
+  #task :gnutls => [:libtasn1, :gmp, :libunistring, :nettle] do |t, args|
+  task :gnutls do |t, args|
+    config_flags = "--disable-silent-rules --disable-static --sysconfdir=/usr/local/etc --with-default-trust-store-file=/usr/local/etc/openssl/cert.pem --disable-heartbeat-support --without-p11-kit --with-libunistring-prefix=#{prefix}"
+    env = {
+      'CPPFLAGS' => "-I#{prefix}/include",
+      'PKG_CONFIG_PATH' => "#{prefix}/lib/pkgconfig",
+      'LDFLAGS' => "-L#{prefix}/lib"
+    }
+    Rake::Task[:compile].invoke('https://www.gnupg.org/ftp/gcrypt/gnutls/v3.5/gnutls-3.5.19.tar.xz', 'gnutls-3.5.19', prefix, config_flags, env)
     Rake::Task[:compile].reenable
   end
 
@@ -44,7 +47,7 @@ namespace :emacs do
   end
 
   task :nettle do
-    Rake::Task[:compile].invoke('https://ftp.gnu.org/gnu/nettle/nettle-3.4.tar.gz', 'nettle-3.4', prefix, '--disable-dependency-tracking --enable-shared --with-include-path=emacs/include --with-lib-path=emacs/lib')
+    Rake::Task[:compile].invoke('https://ftp.gnu.org/gnu/nettle/nettle-3.4.tar.gz', 'nettle-3.4', prefix, "--with-include-path=#{prefix}/include --with-lib-path=#{prefix}/lib")
     Rake::Task[:compile].reenable
   end
 
