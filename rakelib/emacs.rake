@@ -2,15 +2,7 @@ namespace :emacs do
   prefix = "/usr/local/emacs"
 
   task :emacs, [:version] => [:gnutls, :jasson] do |t, args|
-    config_flags = <<~END
-    --disable-silent-rules 
-    --without-x 
-    --with-gnutls 
-    --with-xml2 
-    --without-ns 
-    --with-modules 
-    --prefix=$HOME/Programs/emacs-25.3
-    END
+    config_flags = "--disable-silent-rules --without-x --with-gnutls --with-xml2 --without-ns --with-modules"
     env = {
       'CPPFLAGS' => "-I#{prefix}/include",
       'PKG_CONFIG_PATH' => "#{prefix}/lib/pkgconfig",
