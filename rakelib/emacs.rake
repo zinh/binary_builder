@@ -39,7 +39,7 @@ namespace :emacs do
   end
 
   task :libunistring do
-    Rake::Task[:compile].invoke('https://ftp.gnu.org/gnu/libunistring/libunistring-0.9.10.tar.xz', 'libunistring-0.9.10', prefix, '--disable-dependency-tracking --disable-silent-rules')
+    Rake::Task[:compile].invoke('https://ftp.gnu.org/gnu/libunistring/libunistring-0.9.10.tar.xz', 'libunistring-0.9.10', prefix)
     Rake::Task[:compile].reenable
   end
 
