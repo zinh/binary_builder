@@ -10,6 +10,7 @@ namespace :emacs do
       'LDFLAGS' => "-L#{prefix}/lib"
     }
     Rake::Task[:compile].invoke('http://mirrors.syringanetworks.net/gnu/emacs/emacs-26.3.tar.xz', 'emacs-26.3', prefix, config_flags, env)
+    sh 'tar -zcf emacs.tar.gz /usr/local/emacs'
   end
 
   task :gnutls => [:libtasn1, :gmp, :libunistring, :nettle] do |t, args|
@@ -21,7 +22,6 @@ namespace :emacs do
     }
     Rake::Task[:compile].invoke('https://www.gnupg.org/ftp/gcrypt/gnutls/v3.5/gnutls-3.5.19.tar.xz', 'gnutls-3.5.19', prefix, config_flags, env)
     Rake::Task[:compile].reenable
-    sh 'tar -zcf emacs.tar.gz /usr/local/emacs'
   end
 
   task :libtasn1 do |t, args|
