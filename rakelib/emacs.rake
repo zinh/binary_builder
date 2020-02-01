@@ -2,6 +2,7 @@ namespace :emacs do
   prefix = "/usr/local/emacs"
 
   task :emacs, [:version] => [:gnutls, :jasson] do |t, args|
+    Rake::Task[:libxml2].invoke(prefix)
     config_flags = "--disable-silent-rules --without-x --with-gnutls --with-xml2 --without-ns --with-modules"
     env = {
       'CPPFLAGS' => "-I#{prefix}/include",
@@ -20,6 +21,7 @@ namespace :emacs do
     }
     Rake::Task[:compile].invoke('https://www.gnupg.org/ftp/gcrypt/gnutls/v3.5/gnutls-3.5.19.tar.xz', 'gnutls-3.5.19', prefix, config_flags, env)
     Rake::Task[:compile].reenable
+    sh 'tar -zcf emacs.tar.gz /usr/local/emacs'
   end
 
   task :libtasn1 do |t, args|
