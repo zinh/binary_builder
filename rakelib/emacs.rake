@@ -1,7 +1,7 @@
 namespace :emacs do
   prefix = "/usr/local/emacs"
 
-  task :emacs, [:version] => [:gnutls, :jasson] do |t, args|
+  task :emacs, [:version] => [:gnutls, :jasson, :lcms] do |t, args|
     Rake::Task[:libxml2].invoke(prefix)
     config_flags = "--disable-silent-rules --without-x --with-gnutls --with-xml2 --without-ns --with-modules"
     env = {
@@ -46,6 +46,11 @@ namespace :emacs do
 
   task :jasson do
     Rake::Task[:compile].invoke('http://www.digip.org/jansson/releases/jansson-2.12.tar.gz', 'jansson-2.12', prefix)
+    Rake::Task[:compile].reenable
+  end
+
+  task :lcms do
+    Rake::Task[:compile].invoke('http://archive.ubuntu.com/ubuntu/pool/main/l/lcms2/lcms2_2.9.orig.tar.gz', 'lcms2-2.9', prefix)
     Rake::Task[:compile].reenable
   end
 end
