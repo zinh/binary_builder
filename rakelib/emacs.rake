@@ -19,8 +19,7 @@ namespace :emacs do
     Rake::Task[:compile].invoke('http://mirrors.syringanetworks.net/gnu/emacs/emacs-26.3.tar.xz', 'emacs-26.3', prefix, config_flags, env)
   end
 
-  #task :gnutls => [:libtasn1, :gmp, :libunistring, :nettle] do |t, args|
-  task :gnutls do |t, args|
+  task :gnutls => [:libtasn1, :gmp, :libunistring, :nettle] do |t, args|
     config_flags = "--disable-silent-rules --disable-static --sysconfdir=/usr/local/etc --with-default-trust-store-file=/usr/local/etc/openssl/cert.pem --disable-heartbeat-support --without-p11-kit --with-libunistring-prefix=#{prefix}"
     env = {
       'CPPFLAGS' => "-I#{prefix}/include",
