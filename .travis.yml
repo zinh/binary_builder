@@ -8,5 +8,5 @@ branches:
 deploy:
   provider: releases
   api_key: $GITHUB_AUTH_TOKEN
-  file: emacs.tar.gz
+  file: gcc.tar.gz
   skip_cleanup: true
