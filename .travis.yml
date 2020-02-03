@@ -8,5 +8,5 @@ branches:
 deploy:
   provider: releases
   api_key: $GITHUB_AUTH_TOKEN
-  file: gcc.tar.gz
+  file: tcc.tar.gz
   skip_cleanup: true

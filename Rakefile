@@ -1,1 +1,1 @@
-task default: %w[gcc:gcc]
+task default: %w[tcc:install]
