@@ -1,1 +1,1 @@
-task default: %w[tcc:install]
+task default: %w[emacs:emacs]
