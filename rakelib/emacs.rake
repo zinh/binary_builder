@@ -20,7 +20,7 @@ namespace :emacs do
       'PKG_CONFIG_PATH' => "#{prefix}/lib/pkgconfig",
       'LDFLAGS' => "-L#{prefix}/lib"
     }
-    Rake::Task[:compile].invoke('https://www.gnupg.org/ftp/gcrypt/gnutls/v3.5/gnutls-3.5.19.tar.xz', 'gnutls-3.5.19', prefix, config_flags, env)
+    Rake::Task[:compile].invoke('https://www.gnupg.org/ftp/gcrypt/gnutls/v3.6/gnutls-3.6.12.tar.xz', 'gnutls-3.6.12', prefix, config_flags, env)
     Rake::Task[:compile].reenable
   end
 
