@@ -40,7 +40,7 @@ namespace :emacs do
   end
 
   task :nettle do
-    Rake::Task[:compile].invoke('https://ftp.gnu.org/gnu/nettle/nettle-3.4.tar.gz', 'nettle-3.4', prefix, "--with-include-path=#{prefix}/include --with-lib-path=#{prefix}/lib")
+    Rake::Task[:compile].invoke('https://ftp.gnu.org/gnu/nettle/nettle-3.4.1.tar.gz', 'nettle-3.4.1', prefix, "--with-include-path=#{prefix}/include --with-lib-path=#{prefix}/lib")
     Rake::Task[:compile].reenable
   end
 
